@@ -197,7 +197,7 @@
   setInterval(function() {
     var carId, item, lapTime, update;
     update = false;
-    if (count === 600 || count === 0) {
+    if (count === 100 || count === 0) {
       count = 0;
       updateServerInfo();
       updateServerPlayers();

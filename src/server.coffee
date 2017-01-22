@@ -173,7 +173,7 @@ count = 0
 setInterval ->
     update = no
 
-    if count is 600 or count is 0
+    if count is 100 or count is 0
         count = 0
         updateServerInfo()
         updateServerPlayers()
