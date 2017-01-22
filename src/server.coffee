@@ -165,7 +165,7 @@ updateServerPlayers = ->
                 if vals[4] isnt 'DC'
                     data.players.push vals
                     
-                    id = parseInt vals[0]
+                    id = (parseInt vals[0]) - 1
                     guid = if vals[9].length > 0 then vals[9] else null
                     data.onlines[id] = [guid, vals[1], vals[2]]
         
