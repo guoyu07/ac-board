@@ -31,9 +31,9 @@
       track: null,
       cars: [],
       onlines: {},
-      records: {},
+      records: [],
       players: [],
-      laps: {}
+      laps: []
     };
   }
 

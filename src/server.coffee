@@ -29,9 +29,9 @@ catch e
         track: null
         cars: []
         onlines: {}
-        records: {}
+        records: []
         players: []
-        laps: {}
+        laps: []
 
 
 server = Dgram.createSocket 'udp4'
