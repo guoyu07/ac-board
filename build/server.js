@@ -132,8 +132,8 @@
         p = ref[i];
         if (p[0] === player[0] && p[1] === player[1]) {
           found = true;
-          if (lapTime < p[2]) {
-            p[2] = lapTime;
+          if (lapTime < p[3]) {
+            p[3] = lapTime;
           }
         }
       }
@@ -142,10 +142,10 @@
       if (data.records[data.track] == null) {
         data.records[data.track] = [];
       }
-      data.records[data.track].push([player[0], player[1], lapTime]);
+      data.records[data.track].push([player[0], player[1], player[2], lapTime]);
     }
     records = data.records.sort(function(a, b) {
-      return a[2] - b[2];
+      return a[3] - b[3];
     });
     return data.records = records.slice(0, 30);
   };

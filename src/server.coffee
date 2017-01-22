@@ -115,13 +115,13 @@ updateRecords = (carId, lapTime) ->
             if p[0] == player[0] and p[1] == player[1]
                 found = yes
 
-                p[2] = lapTime if lapTime < p[2]
+                p[3] = lapTime if lapTime < p[3]
 
     if not found
         data.records[data.track] = [] if not data.records[data.track]?
-        data.records[data.track].push [player[0], player[1], lapTime]
+        data.records[data.track].push [player[0], player[1], player[2], lapTime]
 
-    records = data.records.sort (a, b) -> a[2] - b[2]
+    records = data.records.sort (a, b) -> a[3] - b[3]
     data.records = records.slice 0, 30
 
 
