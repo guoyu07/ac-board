@@ -56,6 +56,7 @@
           delete data.onlines[carId];
         }
       }
+      queues.push(true);
     }
     if (id === 73) {
       carId = buff.readUInt8(1);

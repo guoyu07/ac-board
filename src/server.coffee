@@ -52,6 +52,8 @@ server.on 'message', (buff, rinfo) ->
             data.onlines[carId] = [driverGUID, driverName, carModel]
         else
             delete data.onlines[carId] if data.onlines[carId]?
+        
+        queues.push yes
     if id is 73
         carId = buff.readUInt8 1
         lapTime = buff.readUInt32 2
