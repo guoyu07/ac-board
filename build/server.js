@@ -67,6 +67,7 @@
     if (id === 73) {
       carId = buff.readUInt8(1);
       lapTime = buff.readUInt32LE(2);
+      console.log(carId + "@" + lapTime);
       return queues.push([carId, lapTime]);
     }
   });
