@@ -190,7 +190,7 @@
         });
         if (vals[4] !== 'DC') {
           data.players.push(vals);
-          id = parseInt(vals[0]);
+          id = (parseInt(vals[0])) - 1;
           guid = vals[9].length > 0 ? vals[9] : null;
           return data.onlines[id] = [guid, vals[1], vals[2]];
         }
