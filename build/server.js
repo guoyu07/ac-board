@@ -44,7 +44,7 @@
   queues = [];
 
   server.on('message', function(buff, rinfo) {
-    var carId, carModel, driverGUID, driverName, id, lapTime, len1, len2, len3;
+    var carId, carModel, cuts, driverGUID, driverName, id, lapTime, len1, len2, len3;
     id = buff.readUInt8(0);
     console.log("received " + id);
     if (id === 51 || id === 52) {
@@ -67,8 +67,9 @@
     if (id === 73) {
       carId = buff.readUInt8(1);
       lapTime = buff.readUInt32LE(2);
+      cuts = buff.readUInt8(6);
       console.log(carId + "@" + lapTime);
-      return queues.push([carId, lapTime]);
+      return queues.push([carId, lapTime, cuts]);
     }
   });
 
@@ -151,10 +152,10 @@
       }
       data.records[data.track].push([player[0], player[1], player[2], lapTime]);
     }
-    records = data.records.sort(function(a, b) {
+    records = data.records[data.track].sort(function(a, b) {
       return a[3] - b[3];
     });
-    return data.records = records.slice(0, 30);
+    return data.records[data.track] = records.slice(0, 30);
   };
 
   updateServerInfo = function() {
@@ -202,7 +203,7 @@
   count = 0;
 
   setInterval(function() {
-    var carId, item, lapTime, update;
+    var carId, cuts, item, lapTime, update;
     update = false;
     if (count === 100 || count === 0) {
       count = 0;
@@ -214,9 +215,11 @@
         update = true;
         continue;
       }
-      carId = item[0], lapTime = item[1];
+      carId = item[0], lapTime = item[1], cuts = item[2];
       updateLaps(carId);
-      updateRecords(carId, lapTime);
+      if (cuts <= 0) {
+        updateRecords(carId, lapTime);
+      }
       update = true;
     }
     if (update) {

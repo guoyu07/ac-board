@@ -61,9 +61,10 @@ server.on 'message', (buff, rinfo) ->
     if id is 73
         carId = buff.readUInt8 1
         lapTime = buff.readUInt32LE 2
+        cuts = buff.readUInt8 6
 
         console.log "#{carId}@#{lapTime}"
-        queues.push [carId, lapTime]
+        queues.push [carId, lapTime, cuts]
     
 
 requestServer = (type, cb) ->
@@ -126,8 +127,8 @@ updateRecords = (carId, lapTime) ->
         data.records[data.track] = [] if not data.records[data.track]?
         data.records[data.track].push [player[0], player[1], player[2], lapTime]
 
-    records = data.records.sort (a, b) -> a[3] - b[3]
-    data.records = records.slice 0, 30
+    records = data.records[data.track].sort (a, b) -> a[3] - b[3]
+    data.records[data.track] = records.slice 0, 30
 
 
 updateServerInfo = ->
@@ -188,9 +189,9 @@ setInterval ->
             update = yes
             continue
 
-        [carId, lapTime] = item
+        [carId, lapTime, cuts] = item
         updateLaps carId
-        updateRecords carId, lapTime
+        updateRecords carId, lapTime if cuts <= 0
         update = yes
 
     if update
