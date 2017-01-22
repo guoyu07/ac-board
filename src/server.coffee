@@ -5,21 +5,6 @@ Cheerio = require 'cheerio'
 OS = require 'os'
 Fs = require 'fs'
 
-data =
-    name: null
-    passward: no
-    status: no
-    update: null
-    online: 0
-    maxOnline: 0
-    track: null
-    cars: []
-    onlines: {}
-    records: {}
-    players: []
-    laps: {}
-
-
 argv = Opt
     .demand ['h']
     .alias 'p', 'port'
@@ -28,6 +13,25 @@ argv = Opt
     .default 'p', 12000
     .default 'f', OS.tmpdir() + '/ac.json'
     .argv
+
+
+try
+    Fs.accessSync argv.f, Fs.R_OK
+    data = JSON.parse Fs.readFileSync argv.f
+catch e
+    data =
+        name: null
+        passward: no
+        status: no
+        update: null
+        online: 0
+        maxOnline: 0
+        track: null
+        cars: []
+        onlines: {}
+        records: {}
+        players: []
+        laps: {}
 
 
 server = Dgram.createSocket 'udp4'
@@ -56,7 +60,7 @@ server.on 'message', (buff, rinfo) ->
         queues.push yes
     if id is 73
         carId = buff.readUInt8 1
-        lapTime = buff.readUInt32 2
+        lapTime = buff.readUInt32LE 2
 
         queues.push [carId, lapTime]
     
