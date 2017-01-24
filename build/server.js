@@ -138,7 +138,7 @@
       ref = data.records[data.track];
       for (i = 0, len = ref.length; i < len; i++) {
         p = ref[i];
-        if (p[0] === player[0] && p[1] === player[1]) {
+        if (p[0] === player[0] && p[1] === player[1] && p[2] === player[2]) {
           found = true;
           if (lapTime < p[3]) {
             p[3] = lapTime;

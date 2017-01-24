@@ -118,7 +118,7 @@ updateRecords = (carId, lapTime) ->
 
     if data.records[data.track]?
         for p in data.records[data.track]
-            if p[0] == player[0] and p[1] == player[1]
+            if p[0] == player[0] and p[1] == player[1] and p[2] == player[2]
                 found = yes
 
                 p[3] = lapTime if lapTime < p[3]
