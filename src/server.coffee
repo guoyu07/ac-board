@@ -63,7 +63,7 @@ server.on 'message', (buff, rinfo) ->
         lapTime = buff.readUInt32LE 2
         cuts = buff.readUInt8 6
 
-        console.log "#{carId}@#{lapTime}"
+        console.log "#{carId}@#{lapTime}:#{cuts}"
         queues.push [carId, lapTime, cuts]
     
 

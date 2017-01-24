@@ -68,7 +68,7 @@
       carId = buff.readUInt8(1);
       lapTime = buff.readUInt32LE(2);
       cuts = buff.readUInt8(6);
-      console.log(carId + "@" + lapTime);
+      console.log(carId + "@" + lapTime + ":" + cuts);
       return queues.push([carId, lapTime, cuts]);
     }
   });
